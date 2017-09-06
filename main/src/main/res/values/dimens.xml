@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_main_title">16sp</dimen>
+    <!-- 主标题类 -->
+    <dimen name="text_size_list">15sp</dimen>
+    <!-- 列表文字 -->
+    <dimen name="text_size_sub_title">14sp</dimen>
+    <!-- 次级标题（筛选项、副标签栏） -->
+    <dimen name="text_size_describe">13sp</dimen>
+    <!-- 描述介绍类 -->
+</resources>

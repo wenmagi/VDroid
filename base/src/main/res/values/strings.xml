@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">base</string>
+    <string name="text_default_empty">还没有内容</string>
+    <string name="text_default_error_message">似乎出了点问题&#8230;</string>
+    <string name="text_default_error_message_2">似乎出了点问题</string>
+    <string name="text_default_network_error">一时间连不上网络了&#8230;</string>
+    <string name="text_default_retry">重新加载</string>
+</resources>

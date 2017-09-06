@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="setting_background_gray">#FFf1f1f1</color>
+    <!--页面的背景灰色-->
+    <color name="text_color_gray_99">#FF999999</color>
+    <!-- hint gray （例如EditText的hint颜色值） -->
+    <color name="text_color_gray_66">#FF666666</color>
+    <!-- gray -->
+    <color name="text_color_gray_33">#FF333333</color>
+    <!-- deep gray（深黑色，但比黑色优雅） -->
+    <color name="line_gray">#FFdddddd</color>
+    <!-- 线条的黑色 -->
+</resources>

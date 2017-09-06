@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">VDroid</string>
+    <string name="empty_info_default">there is empty～</string>
+
+    <string name="no_more_content_tip">没有更多内容</string>
+
+</resources>
