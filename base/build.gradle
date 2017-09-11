@@ -66,6 +66,7 @@ dependencies {
     compile "net.sourceforge.streamsupport:streamsupport-atomic:$streamSupportVersion"
     compile "net.sourceforge.streamsupport:streamsupport-flow:$streamSupportVersion"
     compile "net.sourceforge.streamsupport:streamsupport-literal:$streamSupportVersion"
+    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
 
     testCompile 'junit:junit:4.12'
 }
