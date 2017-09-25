@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="GBK02A">@color/BK02</color>
+    <color name="GBK03A">@color/BK03</color>
+    <color name="GBK04A">@color/BK04</color>
+    <color name="GBK05A">@color/BK05</color>
+    <color name="GBK06A">@color/BK06</color>
+    <color name="GBK06B">@color/BK06</color>
+    <color name="GBK07A">@color/BK07</color>
+    <color name="GBK07B">@color/BK07</color>
+    <color name="GBK08A">@color/BK08</color>
+    <color name="GBK08B">@color/BK08</color>
+    <color name="GBK09A">@color/BK09</color>
+    <color name="GBK09B">@color/BK09</color>
+    <color name="GBK09C">@color/BK09</color>
+    <color name="GBK10A">@color/BK10</color>
+    <color name="GBK10B">@color/BK10</color>
+    <color name="GBK10C">@color/BK10</color>
+    <color name="GBK99A">@color/BK99</color>
+    <color name="GBK99B">@color/BK99</color>
+    <color name="GBK99C">@color/BK99</color>
+    <color name="GBL01A">@color/BL01</color>
+    <color name="GBL01B">@color/BL01</color>
+    <color name="GBL03A">@color/BL03</color>
+    <color name="GBL04A" comment="这个色组一般用于各种顶 tab 标题颜色，所以带有透明度(70%)">#b2ffffff</color>
+    <color name="GRD01A">@color/RD01</color>
+    <color name="GRD03A">@color/RD03</color>
+    <color name="GRD05A">@color/RD05</color>
+    <color name="GYL01A">@color/YL01</color>
+    <color name="GYL02A">@color/YL02</color>
+</resources>

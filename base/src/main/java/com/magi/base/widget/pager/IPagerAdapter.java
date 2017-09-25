@@ -23,7 +23,7 @@ import java.util.List;
  * @since 06-22-2017
  */
 
-public interface IZHPagerAdapter {
+public interface IPagerAdapter {
 
     PagerItem getPagerItem(final int pPosition);
 

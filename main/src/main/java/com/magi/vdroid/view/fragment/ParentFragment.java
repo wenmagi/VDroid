@@ -44,6 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParentFragment extends Fragment {
 
+    public static final String KEY_HOST = "zhihu:parent_fragment:host";
     private static final String KEY_HOST_INITIALIZED = "zhihu:parent_fragment:host_initialized";
 
     private final AtomicInteger mCounter = new AtomicInteger(0);
@@ -56,7 +57,7 @@ public class ParentFragment extends Fragment {
 
     private Fragment mHostFragment;
 
-    private static final int mStackLimit = 10;
+    private final int mStackLimit = 10;
 
     private TreeMap<String, Fragment> mChildren = new TreeMap<>();
 

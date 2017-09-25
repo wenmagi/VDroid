@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,16 +17,20 @@ import com.magi.base.ui.activities.BaseFragmentActivity;
 import com.magi.base.utils.MainTabs;
 import com.magi.base.utils.VIntent;
 import com.magi.base.utils.VirtualBoardUtils;
-import com.magi.base.widget.pager.IZHPagerAdapter;
+import com.magi.base.widget.TintDrawable;
+import com.magi.base.widget.pager.IOnItemInitialedListener;
+import com.magi.base.widget.pager.IPagerAdapter;
 import com.magi.base.widget.pager.PagerItem;
+import com.magi.base.widget.pager.VPagerAdapter;
 import com.magi.vdroid.R;
 import com.magi.vdroid.databinding.ActivityMainBinding;
+import com.magi.vdroid.view.fragment.BaseRecyclerFragment;
 import com.magi.vdroid.view.fragment.ParentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTabSelectedListener, IOnItemInitialedListener {
 
     private List<TabLayout.OnTabSelectedListener> mTabObservers = new ArrayList<>();
 
@@ -35,6 +40,40 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        VPagerAdapter adapter = new VPagerAdapter(this);
+        adapter.setOnItemInitialedListener(this);
+        this.mBinding.mainPager.setAdapter(adapter);
+        this.mBinding.mainPager.setOffscreenPageLimit(3);
+        setupTab();
+    }
+
+    private void setupTab() {
+        VPagerAdapter tabAdapter = (VPagerAdapter) mBinding.mainPager.getAdapter();
+        final int tabColorRes = R.color.main_tab_color;
+        final List<PagerItem> items = new ArrayList<>();
+
+        final TintDrawable iconHome = new TintDrawable(ResourcesCompat.getDrawable(this.getResources(), R.drawable
+                .ic_bottomtabbar_feed, this.getTheme()));
+        iconHome.setTintColor(ResourcesCompat.getColorStateList(this.getResources(), tabColorRes, this.getTheme()));
+        final Bundle feedItemArgs = new Bundle();
+        feedItemArgs.putString(ParentFragment.KEY_HOST, BaseRecyclerFragment.class.getName());
+        items.add(new PagerItem(ParentFragment.class, getString(R.string.tab_name_feed), iconHome, null));
+
+
+        Bundle exploreItemArgs = new Bundle();
+        exploreItemArgs.putString(ParentFragment.KEY_HOST, BaseRecyclerFragment.class.getName());
+        TintDrawable iconExplore = new TintDrawable(ResourcesCompat.getDrawable(getResources(),
+                R.drawable.ic_bottomtabbar_discover, getTheme()));
+        iconExplore.setTintColor(ResourcesCompat.getColorStateList(getResources(), tabColorRes, getTheme()));
+        items.add(new PagerItem(ParentFragment.class, getString(R.string.tab_name_explore), iconExplore,
+                exploreItemArgs));
+        tabAdapter.setPagerItems(items, true);
+
     }
 
     public int getCurrentTab() {
@@ -112,7 +151,7 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
     private boolean tryToStartTopLevelFragment(VIntent intent) {
         int count = mBinding.mainPager.getChildCount();
         for (int i = 0; i < count; i++) {
-            PagerItem pagerItem = ((IZHPagerAdapter) mBinding.mainPager.getAdapter()).getPagerItem(i);
+            PagerItem pagerItem = ((IPagerAdapter) mBinding.mainPager.getAdapter()).getPagerItem(i);
             if (intent.getClassName().equals(pagerItem.getArguments().getString("host"))) {
                 mBinding.mainPager.setCurrentItem(i, false);
                 final ParentFragment currentTabItemContainer = this.getCurrentTabItemContainer();
@@ -241,7 +280,7 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
     @Nullable
     public ParentFragment getCurrentTabItemContainer() {
         return this.mBinding.mainPager != null ?
-                (ParentFragment) ((IZHPagerAdapter) this.mBinding.mainPager.getAdapter()).getCurrentPrimaryItem()
+                (ParentFragment) ((IPagerAdapter) this.mBinding.mainPager.getAdapter()).getCurrentPrimaryItem()
                 : null;
     }
 
@@ -312,5 +351,10 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
         if (currentTabItemContainer != null) {
             currentTabItemContainer.onReselected();
         }
+    }
+
+    @Override
+    public void onItemInitialed(int position, Fragment fragment) {
+
     }
 }

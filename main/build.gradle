@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
@@ -14,6 +15,11 @@ android {
         /*retroLambda 接入（非 Module 中添加）（4）共四步*/
         jackOptions {
             enabled true
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 
@@ -34,5 +40,10 @@ dependencies {
     compile project(':base')
     compile project(':api')
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+//    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

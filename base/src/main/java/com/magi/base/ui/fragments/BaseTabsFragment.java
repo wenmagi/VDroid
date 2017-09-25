@@ -15,9 +15,9 @@ import android.widget.RelativeLayout;
 
 import com.magi.base.R;
 import com.magi.base.utils.DisplayUtils;
-import com.magi.base.widget.pager.IZHPagerAdapter;
+import com.magi.base.widget.pager.IPagerAdapter;
 import com.magi.base.widget.pager.PagerItem;
-import com.magi.base.widget.pager.ZHPagerAdapter;
+import com.magi.base.widget.pager.VPagerAdapter;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
 
 public abstract class BaseTabsFragment extends BaseToolbarFragment implements ViewPager.OnPageChangeListener {
 
-    protected IZHPagerAdapter mZHPagerAdapter;
+    protected IPagerAdapter mZHPagerAdapter;
 
     private int mMaxTabsTranslationY;
 
@@ -86,8 +86,8 @@ public abstract class BaseTabsFragment extends BaseToolbarFragment implements Vi
         mTabLayout.setTranslationY(0);
     }
 
-    protected IZHPagerAdapter createPagerAdapter() {
-        return new ZHPagerAdapter(this);
+    protected IPagerAdapter createPagerAdapter() {
+        return new VPagerAdapter(this);
     }
 
     public abstract List<PagerItem> onCreatePagerItems();

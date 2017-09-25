@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.magi.base.widget.recycler.VViewHolder;
+import com.magi.vdroid.R;
 import com.magi.vdroid.databinding.RecyclerItemProgressBinding;
 
 /**
@@ -22,7 +23,7 @@ public class ProgressViewHolder extends VViewHolder<Object, RecyclerItemProgress
     @Override
     protected void onBindData(Object data) {
         super.onBindData(data);
-        mBinding.progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getContext(), com.magi
-                .base.R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+        mBinding.progressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color
+                .colorPrimary), PorterDuff.Mode.MULTIPLY);
     }
 }

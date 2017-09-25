@@ -18,7 +18,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
 import android.view.ViewGroup;
@@ -26,20 +26,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * {@link android.support.v4.view.ViewPager#setOffscreenPageLimit(int limit)} 中 limit 值为预加载量
- * <p>
- * 例：limit = 1 时，处于 position = 3，则预先加载 2、3、4 页面
- * <p>
- * {@link #openVisibleAllBrowsedPager(boolean)} 开启后浏览过的页面不会被销毁
- *
- * @author zhangzhaowen @ Zhihu Inc.
- * @since 05-27-2017
+ * @author Joosun @ Zhihu Inc.
+ * @author mthli @ Zhihu Inc.
+ * @since 04-23-2015
  */
-
-public class ZHStatePagerAdapter extends FragmentStatePagerAdapter implements IZHPagerAdapter{
-
+public class VPagerAdapter extends FragmentPagerAdapter implements IPagerAdapter {
     private final List<PagerItem> mPagerItems;
 
     private Context mContext;
@@ -49,82 +41,57 @@ public class ZHStatePagerAdapter extends FragmentStatePagerAdapter implements IZ
     private Fragment mCurrentPrimaryItem;
 
     private IOnPrimaryItemChangedListener mPrimaryItemChangeListener;
-
     private IOnItemInitialedListener mOnItemInitialedListener;
-
-    /**
-     * 保存所有浏览过的页面
-     */
-    private boolean mVisibleAllBrowsedPager;
-
-    /**
-     * 尽量不要开启该功能，除非产品要求
-     * <p>
-     * {@link android.support.v4.view.ViewPager#setOffscreenPageLimit(int n)}
-     * <p>
-     * true: 所有预览过的页面均不会被销毁（使用少量动态页面）
-     * <p>
-     * false: 只会展示当前页面 + 左边 n 个页面 + 右边 n 个页面
-     */
-    @SuppressWarnings("unused")
-    private void openVisibleAllBrowsedPager(boolean openVisibleAll) {
-        this.mVisibleAllBrowsedPager = openVisibleAll;
-    }
 
     // 保存已经存在的 Fragment 实例
     private SparseArray<Fragment> mFragments = new SparseArray<>();
 
-    @SuppressWarnings("unused")
-    public ZHStatePagerAdapter(final FragmentActivity pActivity) {
-        super(pActivity.getSupportFragmentManager());
+    public VPagerAdapter(final FragmentActivity activity) {
+        super(activity.getSupportFragmentManager());
 
-        this.mContext = pActivity;
+        this.mContext = activity;
 
-        this.mManager = pActivity.getSupportFragmentManager();
+        this.mManager = activity.getSupportFragmentManager();
+
+        this.mPagerItems = new ArrayList<>();
+    }
+
+    public VPagerAdapter(final Fragment fragment) {
+        super(fragment.getChildFragmentManager());
+
+        this.mContext = fragment.getActivity();
+
+        this.mManager = fragment.getChildFragmentManager();
 
         this.mPagerItems = new ArrayList<>();
     }
 
     @SuppressWarnings("unused")
-    public ZHStatePagerAdapter(final Fragment pFragment) {
-        super(pFragment.getChildFragmentManager());
-
-        this.mContext = pFragment.getActivity();
-
-        this.mManager = pFragment.getChildFragmentManager();
-
-        this.mPagerItems = new ArrayList<>();
-    }
-
-    @SuppressWarnings("unused")
-    public void addPagerItem(final PagerItem pPagerItem) {
-        this.mPagerItems.add(pPagerItem);
+    public void addPagerItem(final PagerItem pagerItem) {
+        this.mPagerItems.add(pagerItem);
 
         this.notifyDataSetChanged();
     }
 
     @SuppressWarnings("unused")
-    public void addPagerItems(List<PagerItem> pPagerItems) {
-        this.mPagerItems.addAll(pPagerItems);
+    public void addPagerItems(List<PagerItem> pagerItems) {
+        this.mPagerItems.addAll(pagerItems);
         this.notifyDataSetChanged();
     }
 
     /**
      * 之前命名为#addPagerItems，是有问题的，改为setPagerItems
      *
-     * @param pForceClearOldItems 设为true将干掉所在fragmentManager里面所有的Fragment，这样是有问题和限制的，
+     * @param forceClearOldItems 设为true将干掉所在fragmentManager里面所有的Fragment，这样是有问题和限制的，
      *                            一是有可能此Fragment是还有ViewPager之外的其他Fragment，
      *                            二是有可能导致应用状态不正确，单独的Tab在初始化的时候如果是由父Fragment主导初始化就可能会有问题。
      */
-    @SuppressWarnings("unused")
-    public void setPagerItems(List<PagerItem> pPagerItems, boolean pForceClearOldItems) {
-        if (pForceClearOldItems) {
+    public void setPagerItems(List<PagerItem> pagerItems, boolean forceClearOldItems) {
+        if (forceClearOldItems) {
             this.clearItems();
         }
 
-        for (final PagerItem pagerItem : pPagerItems) {
-            this.mPagerItems.add(pagerItem);
-        }
+        this.mPagerItems.addAll(pagerItems);
 
         this.notifyDataSetChanged();
     }
@@ -145,34 +112,34 @@ public class ZHStatePagerAdapter extends FragmentStatePagerAdapter implements IZ
         }
     }
 
-    public PagerItem getPagerItem(final int pPosition) {
-        return this.mPagerItems.get(pPosition);
+    public PagerItem getPagerItem(final int position) {
+        return this.mPagerItems.get(position);
     }
 
     @Override
-    public Fragment getItem(final int pPosition) {
-        final PagerItem pagerItem = this.getPagerItem(pPosition);
+    public Fragment getItem(final int position) {
+        final PagerItem pagerItem = this.getPagerItem(position);
 
         Fragment fragment = Fragment.instantiate(this.mContext, pagerItem.getFragmentClass().getName(), pagerItem
                 .getArguments());
-        mFragments.put(pPosition, fragment);
+        mFragments.put(position, fragment);
 
         if (mOnItemInitialedListener != null) {
-            mOnItemInitialedListener.onItemInitialed(pPosition, fragment);
+            mOnItemInitialedListener.onItemInitialed(position, fragment);
         }
 
         return fragment;
     }
 
     @Override
-    public int getItemPosition(final Object pObject) {
+    public int getItemPosition(final Object object) {
         // 强制触发 notifyDataSetChanged 时刷新 fragment
         return android.support.v4.view.PagerAdapter.POSITION_NONE;
     }
 
     @Override
-    public CharSequence getPageTitle(final int pPosition) {
-        return this.getPagerItem(pPosition).getTitle();
+    public CharSequence getPageTitle(final int position) {
+        return this.getPagerItem(position).getTitle();
     }
 
     @Override
@@ -181,13 +148,13 @@ public class ZHStatePagerAdapter extends FragmentStatePagerAdapter implements IZ
     }
 
     @Override
-    public void setPrimaryItem(final ViewGroup pContainer, final int pPosition, final Object pObject) {
-        super.setPrimaryItem(pContainer, pPosition, pObject);
+    public void setPrimaryItem(final ViewGroup container, final int position, final Object object) {
+        super.setPrimaryItem(container, position, object);
 
-        final Fragment newFragment = (Fragment) pObject;
+        final Fragment newFragment = (Fragment) object;
 
         if (this.mPrimaryItemChangeListener != null && newFragment != this.mCurrentPrimaryItem) {
-            this.mPrimaryItemChangeListener.onPrimaryItemChanged(pContainer, pPosition, this.mCurrentPrimaryItem,
+            this.mPrimaryItemChangeListener.onPrimaryItemChanged(container, position, this.mCurrentPrimaryItem,
                     newFragment);
         }
 
@@ -209,13 +176,8 @@ public class ZHStatePagerAdapter extends FragmentStatePagerAdapter implements IZ
         mOnItemInitialedListener = onItemInitialedListener;
     }
 
-    public void setOnPrimaryItemChangedListener(final IOnPrimaryItemChangedListener pPrimaryItemChangeListener) {
-        this.mPrimaryItemChangeListener = pPrimaryItemChangeListener;
+    public void setOnPrimaryItemChangedListener(final IOnPrimaryItemChangedListener primaryItemChangeListener) {
+        this.mPrimaryItemChangeListener = primaryItemChangeListener;
     }
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        if (!mVisibleAllBrowsedPager)
-            super.destroyItem(container, position, object);
-    }
 }

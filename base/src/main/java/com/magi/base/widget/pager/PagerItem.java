@@ -75,7 +75,7 @@ public class PagerItem {
         this.mArguments = arguments;
     }
 
-    private PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title, final Drawable
+    public PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title, final Drawable
             icon, final Bundle arguments) {
         this.mFragmentClass = fragmentClass;
 

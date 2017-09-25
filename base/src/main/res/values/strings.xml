@@ -5,4 +5,9 @@
     <string name="text_default_error_message_2">似乎出了点问题</string>
     <string name="text_default_network_error">一时间连不上网络了&#8230;</string>
     <string name="text_default_retry">重新加载</string>
+    <string name="tab_name_feed">首页</string>
+    <string name="tab_name_explore">发现</string>
+    <string name="empty_info_default">there is empty～</string>
+
+    <string name="no_more_content_tip">没有更多内容</string>
 </resources>

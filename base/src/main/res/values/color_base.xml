@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="BK01">#000000</color>
+    <color name="BK02">#1A1A1A</color>
+    <color name="BK03">#444444</color>
+    <color name="BK04">#646464</color>
+    <color name="BK05">#808080</color>
+    <color name="BK06">#999999</color>
+    <color name="BK07">#BFBFBF</color>
+    <color name="BK08">#D3D3D3</color>
+    <color name="BK09">#EBEBEB</color>
+    <color name="BK10">#F6F6F6</color>
+    <color name="BK11">#2E2E2E</color>
+    <color name="BK99">#FFFFFF</color>
+    <color name="BL01">#0084FF</color>
+    <color name="BL02">#3A76D0</color>
+    <color name="BL03">#03A9F4</color>
+    <color name="BL04">#80C1FF</color>
+    <color name="RD01">#FF3366</color>
+    <color name="RD02">#D92155</color>
+    <color name="RD03">#F1403C</color>
+    <color name="RD04">#B7302D</color>
+    <color name="RD05">#FF65C6</color>
+    <color name="RD06">#CC589E</color>
+    <color name="YL01">#FF9607</color>
+    <color name="YL02">#C2A469</color>
+    <color name="YL03">#BA9B5D</color>
+
+    <color name="EB01">#FF7C00</color>
+    <color name="EB02">#D3BA89</color>
+    <color name="EB03">#FFF4DF</color>
+    <color name="EB04">#B2AA9B</color>
+    <color name="EB05">#3A2B0D</color>
+    <color name="EB06">#009B4E</color>
+    <color name="EB07">#93C199</color>
+    <color name="EB08">#DAF2DD</color>
+    <color name="EB09">#98A89A</color>
+    <color name="EB10">#0B2B0F</color>
+</resources>
