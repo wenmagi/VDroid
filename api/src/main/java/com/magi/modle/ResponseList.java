@@ -10,7 +10,7 @@ import java.util.List;
  * @since 06-29-2017
  */
 
-public class ResponseList<T extends List<Response>> {
+public class ResponseList<T extends Response> {
 
     @SerializedName("data")
     public List<T> data;

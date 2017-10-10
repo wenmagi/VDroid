@@ -2,7 +2,7 @@
 
 buildscript {
     // 1.1.1 以上版本不支持 jack，导致无法使用 java 8
-//    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.1.1'
     repositories {
         jcenter()
     }
@@ -12,7 +12,7 @@ buildscript {
 
         /*retroLambda 接入（1）共四步*/
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

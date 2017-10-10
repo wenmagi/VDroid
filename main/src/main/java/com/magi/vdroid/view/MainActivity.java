@@ -26,6 +26,7 @@ import com.magi.vdroid.R;
 import com.magi.vdroid.databinding.ActivityMainBinding;
 import com.magi.vdroid.view.fragment.BaseRecyclerFragment;
 import com.magi.vdroid.view.fragment.ParentFragment;
+import com.magi.vdroid.view.fragment.TestFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
         adapter.setOnItemInitialedListener(this);
         this.mBinding.mainPager.setAdapter(adapter);
         this.mBinding.mainPager.setOffscreenPageLimit(3);
+        this.mBinding.mainTab.setupWithViewPager(mBinding.mainPager);
         setupTab();
     }
 
@@ -61,18 +63,23 @@ public class MainActivity extends BaseFragmentActivity implements TabLayout.OnTa
                 .ic_bottomtabbar_feed, this.getTheme()));
         iconHome.setTintColor(ResourcesCompat.getColorStateList(this.getResources(), tabColorRes, this.getTheme()));
         final Bundle feedItemArgs = new Bundle();
-        feedItemArgs.putString(ParentFragment.KEY_HOST, BaseRecyclerFragment.class.getName());
-        items.add(new PagerItem(ParentFragment.class, getString(R.string.tab_name_feed), iconHome, null));
+        feedItemArgs.putString(ParentFragment.KEY_HOST, TestFragment.class.getName());
+        items.add(new PagerItem(ParentFragment.class, getString(R.string.tab_name_feed), iconHome, feedItemArgs));
 
 
         Bundle exploreItemArgs = new Bundle();
-        exploreItemArgs.putString(ParentFragment.KEY_HOST, BaseRecyclerFragment.class.getName());
+        exploreItemArgs.putString(ParentFragment.KEY_HOST, TestFragment.class.getName());
         TintDrawable iconExplore = new TintDrawable(ResourcesCompat.getDrawable(getResources(),
                 R.drawable.ic_bottomtabbar_discover, getTheme()));
         iconExplore.setTintColor(ResourcesCompat.getColorStateList(getResources(), tabColorRes, getTheme()));
         items.add(new PagerItem(ParentFragment.class, getString(R.string.tab_name_explore), iconExplore,
                 exploreItemArgs));
         tabAdapter.setPagerItems(items, true);
+
+        for (int i = 0; i < tabAdapter.getCount(); i++) {
+            this.mBinding.mainTab.getTabAt(i).setIcon(tabAdapter.getPagerItem(i).getIcon());
+        }
+
 
     }
 

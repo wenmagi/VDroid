@@ -73,7 +73,7 @@ public class ParentFragment extends Fragment {
         final Bundle arguments = this.getArguments();
 
         if (arguments != null) {
-            this.mHostFragmentClassName = arguments.getString("host");
+            this.mHostFragmentClassName = arguments.getString(KEY_HOST);
         } else {
             throw new IllegalStateException("must set host fragment class name");
         }
